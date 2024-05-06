@@ -1,16 +1,22 @@
-// src/Controller/HomeController.php
+<?php
+
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
-class HomeController
+class HomeController extends AbstractController
 {
-/**
-* @Route("/", name="app_homepage")
-*/
-public function index(): Response
-{
-return new Response('Welcome to the homepage!');
-}
+    #[Route('/home', name: 'app_home')]
+    public function index(): Response
+    {
+        return $this->render('home/index.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+    public function redirectHome(): RedirectResponse {
+        return new RedirectResponse('/home', 301);
+    }
 }

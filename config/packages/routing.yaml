@@ -1,12 +1,12 @@
 framework:
     router:
         utf8: true
-        routes:
-            # This route matches the root path (/)
-            home:
-                path: /  # This is the path that users will access in the browser (e.g., http://127.0.0.1:8000/)
-                methods: [ GET ]  # This route only accepts GET requests
-
+#        routes:
+#            # This route matches the root path (/)
+#            home:
+#                path: /  # This is the path that users will access in the browser (e.g., http://127.0.0.1:8000/)
+#                methods: [ GET ]  # This route only accepts GET requests
+#
 
 
         # Configure how to generate URLs in non-HTTP contexts, such as CLI commands.
