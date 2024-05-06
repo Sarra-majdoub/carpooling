@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240506184746 extends AbstractMigration
+final class Version20240506210247 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,13 +25,11 @@ final class Version20240506184746 extends AbstractMigration
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL, available_at DATETIME NOT NULL, delivered_at DATETIME DEFAULT NULL, INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D64960834035 FOREIGN KEY (joined_id_id) REFERENCES ride (id)');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D649E68F9036 FOREIGN KEY (driving_id_id) REFERENCES ride (id)');
-        $this->addSql('DROP TABLE test');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE test (test INT NOT NULL, test2 INT NOT NULL, test3 INT NOT NULL, test4 INT NOT NULL) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_general_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D64960834035');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D649E68F9036');
         $this->addSql('DROP TABLE ride');
