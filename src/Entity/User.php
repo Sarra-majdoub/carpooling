@@ -14,10 +14,10 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $firstName = null;
+    private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $lastName = null;
+    private ?string $lastname = null;
 
     #[ORM\Column]
     private ?int $phoneNumber = null;
@@ -29,48 +29,48 @@ class User
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $pfp_path = null;
+    private ?string $pfpPath = null;
 
     #[ORM\Column]
-    private ?bool $is_admin = null;
+    private ?bool $isAdmin = null;
 
     #[ORM\Column]
     private ?float $rating = null;
 
     #[ORM\Column]
-    private ?int $nb_ratings = null;
+    private ?int $nbRatings = null;
 
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
-    private ?Ride $joined_id = null;
+    #[ORM\ManyToOne(inversedBy: 'Passengers')]
+    private ?Ride $joined = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Ride $driving_id = null;
+    #[ORM\OneToOne(inversedBy: 'driver', cascade: ['persist', 'remove'])]
+    private ?Ride $driving = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
-    public function setFirstName(string $firstName): static
+    public function setFirstname(string $firstname): static
     {
-        $this->firstName = $firstName;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getLastname(): ?string
     {
-        return $this->lastName;
+        return $this->lastname;
     }
 
-    public function setLastName(string $lastName): static
+    public function setLastname(string $lastname): static
     {
-        $this->lastName = $lastName;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -113,24 +113,24 @@ class User
 
     public function getPfpPath(): ?string
     {
-        return $this->pfp_path;
+        return $this->pfpPath;
     }
 
-    public function setPfpPath(string $pfp_path): static
+    public function setPfpPath(string $pfpPath): static
     {
-        $this->pfp_path = $pfp_path;
+        $this->pfpPath = $pfpPath;
 
         return $this;
     }
 
     public function isIsAdmin(): ?bool
     {
-        return $this->is_admin;
+        return $this->isAdmin;
     }
 
-    public function setIsAdmin(bool $is_admin): static
+    public function setIsAdmin(bool $isAdmin): static
     {
-        $this->is_admin = $is_admin;
+        $this->isAdmin = $isAdmin;
 
         return $this;
     }
@@ -149,36 +149,36 @@ class User
 
     public function getNbRatings(): ?int
     {
-        return $this->nb_ratings;
+        return $this->nbRatings;
     }
 
-    public function setNbRatings(int $nb_ratings): static
+    public function setNbRatings(int $nbRatings): static
     {
-        $this->nb_ratings = $nb_ratings;
+        $this->nbRatings = $nbRatings;
 
         return $this;
     }
 
-    public function getJoinedId(): ?Ride
+    public function getJoined(): ?Ride
     {
-        return $this->joined_id;
+        return $this->joined;
     }
 
-    public function setJoinedId(?Ride $joined_id): static
+    public function setJoined(?Ride $joined): static
     {
-        $this->joined_id = $joined_id;
+        $this->joined = $joined;
 
         return $this;
     }
 
-    public function getDrivingId(): ?Ride
+    public function getDriving(): ?Ride
     {
-        return $this->driving_id;
+        return $this->driving;
     }
 
-    public function setDrivingId(?Ride $driving_id): static
+    public function setDriving(?Ride $driving): static
     {
-        $this->driving_id = $driving_id;
+        $this->driving = $driving;
 
         return $this;
     }
