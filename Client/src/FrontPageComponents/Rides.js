@@ -22,41 +22,41 @@ const Rides = () => {
     setIsModalVisible(true);
   };
 
-  const reportUser = (id) => {
-    const data = new FormData();
-    data.append("action", "report");
-    data.append("id", id);
-    data.append("reported_id", id);
-    axios
-      .get("http://localhost:8000/api/rides", data)
-      .then((response) => {
-        if (response.status === 200) {
-          if (response.status === 200) {
-            const responseData = response.data;
-            console.log(responseData);
-            if (responseData === "[]null") {
-              setOffers([]);
-            } else {
-              setOffers(responseData);
-              console.log(responseData);
-            }
-
-            alert("User has been reported.");
-          } else {
-            alert("An error occurred. Please try again later.");
-          }
-        }
-      })
-      .catch((error) => {
-        alert("An error occurred. Please try again later.");
-      });
-  };
+  // const reportUser = (id) => {
+  //   const data = new FormData();
+  //   data.append("action", "report");
+  //   data.append("id", id);
+  //   data.append("reported_id", id);
+  //   axios
+  //     .get("http://localhost:8000/api/rides", data)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         if (response.status === 200) {
+  //           const responseData = response.data;
+  //           console.log(responseData);
+  //           if (responseData === "[]null") {
+  //             setOffers([]);
+  //           } else {
+  //             setOffers(responseData);
+  //             console.log(responseData);
+  //           }
+  //
+  //           alert("User has been reported.");
+  //         } else {
+  //           alert("An error occurred. Please try again later.");
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       alert("An error occurred. Please try again later.");
+  //     });
+  // };
 
   const menu = (image, id) => (
     <Menu>
-      <Menu.Item key="1" onClick={() => reportUser(id)}>
-        Report User
-      </Menu.Item>
+      {/*<Menu.Item key="1" onClick={() => reportUser(id)}>*/}
+      {/*  Report User*/}
+      {/*</Menu.Item>*/}
       <Menu.Item key="2" onClick={() => viewProfilePicture(image)}>
         View Profile Picture
       </Menu.Item>
@@ -78,22 +78,22 @@ const Rides = () => {
       if (currency) data.append("price", currency);
       if (places) data.append("having", places);
       try {
-        const response = await axios.post(
-          "http://localhost/Server/api/rides",
-          data
+        const response = await axios.get(
+          "http://localhost:8000/api/rides"
         );
+        console.log(response);
         if (response.status === 200) {
           const responseData = response.data;
-          console.log(responseData);
+         // console.log(responseData);
           if (responseData === "[]null") {
-            console.log("inn");
+         console.log("inn");
             setOffers([]);
           } else {
             setOffers(responseData);
           }
         }
       } catch (error) {
-        console.error(error);
+      //  console.error(error);
         alert("An error occurred. Please try again later.");
       }
     }
@@ -103,71 +103,71 @@ const Rides = () => {
   }, [places, time, date, departure, arrival, rating, currency]);
   useEffect(() => {
     setSubOffers(offers.slice((currentPage - 1) * 9, currentPage * 9));
-    console.log("hereeeee");
-    console.log(subOffers);
+    //console.log("hereeeee");
+    //console.log(subOffers);
   }, [currentPage, offers]);
 
-  const buttonPressed = (offer) => {
-    let buttonOn = localStorage.getItem("buttonOn");
-    console.log(buttonOn);
-    if (buttonOn == 0) {
-      localStorage.setItem("buttonOn", 1);
-      localStorage.setItem("rideId", offer.id);
-      const associatedRide = localStorage.getItem("rideId");
-      const data = new FormData();
-      const user = localStorage.getItem("userId");
-      data.append("action", "joinRide");
-      data.append("id", user);
-      data.append("ride_id", offer.id);
-      console.log(data.get("id"));
-      console.log(data.get("ride_id"));
-      axios
-        .post("http://localhost/Server/rides", data)
-        .then((response) => {
-          console.log(response.data);
-          if (response.status === 200) {
-            alert("Ride joined successfully.");
-          } else {
-            alert("An error occurred. Please try again later.");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          alert("An error occurred. Please try again later.");
-        });
-    } else {
-      if (offer.id !== localStorage.getItem("rideId"))
-        alert(
-          "You have already joined a ride. You can only join one ride at a time."
-        );
-      else {
-        const data = new FormData();
-        const user = localStorage.getItem("userId");
-        data.append("action", "leaveRide");
-        data.append("id", user);
-        data.append("ride_id", offer.id);
-        console.log(data.get("id"));
-        console.log(data.get("ride_id"));
-        axios
-          .post("http://localhost/Server/rides", data)
-          .then((response) => {
-            console.log(response.data);
-            if (response.status === 200) {
-              alert("Ride left successfully.");
-              localStorage.setItem("buttonOn", 0);
-            } else {
-              alert("An error occurred. Please try again later.");
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-            alert("An error occurred. Please try again later.");
-          });
-        localStorage.setItem("buttonOn", 0);
-        localStorage.setItem("rideId", 0);
-      }
-    }
-  };
+  // const buttonPressed = (offer) => {
+  //   let buttonOn = localStorage.getItem("buttonOn");
+  //  // console.log(buttonOn);
+  //   if (buttonOn == 0) {
+  //     localStorage.setItem("buttonOn", 1);
+  //     localStorage.setItem("rideId", offer.id);
+  //     const associatedRide = localStorage.getItem("rideId");
+  //     const data = new FormData();
+  //     const user = localStorage.getItem("userId");
+  //     data.append("action", "joinRide");
+  //     data.append("id", user);
+  //     data.append("ride_id", offer.id);
+  //   //  console.log(data.get("id"));
+  //  //   console.log(data.get("ride_id"));
+  //     axios
+  //       .post("http://localhost/Server/rides", data)
+  //       .then((response) => {
+  //         console.log(response.data);
+  //         if (response.status === 200) {
+  //           alert("Ride joined successfully.");
+  //         } else {
+  //           alert("An error occurred. Please try again later.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //         alert("An error occurred. Please try again later.");
+  //       });
+  //   } else {
+  //     if (offer.id !== localStorage.getItem("rideId"))
+  //       alert(
+  //         "You have already joined a ride. You can only join one ride at a time."
+  //       );
+  //     else {
+  //       const data = new FormData();
+  //       const user = localStorage.getItem("userId");
+  //       data.append("action", "leaveRide");
+  //       data.append("id", user);
+  //       data.append("ride_id", offer.id);
+  //       console.log(data.get("id"));
+  //       console.log(data.get("ride_id"));
+  //       axios
+  //         .post("http://localhost/Server/rides", data)
+  //         .then((response) => {
+  //           console.log(response.data);
+  //           if (response.status === 200) {
+  //             alert("Ride left successfully.");
+  //             localStorage.setItem("buttonOn", 0);
+  //           } else {
+  //             alert("An error occurred. Please try again later.");
+  //           }
+  //         })
+  //         .catch((error) => {
+  //           console.error(error);
+  //           alert("An error occurred. Please try again later.");
+  //         });
+  //       localStorage.setItem("buttonOn", 0);
+  //       localStorage.setItem("rideId", 0);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="offers flex flex-col">
@@ -218,7 +218,7 @@ const Rides = () => {
                 <button
                   type="submit"
                   className={"button"}
-                  onClick={() => buttonPressed(offer)}
+                //  onClick={() => buttonPressed(offer)}
                 >
                   Join/Leave
                 </button>

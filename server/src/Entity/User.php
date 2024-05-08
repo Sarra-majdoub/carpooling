@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Nelmio\CorsBundle\NelmioCorsBundle;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;

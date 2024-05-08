@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Nelmio\CorsBundle\NelmioCorsBundle;
 
 use App\Repository\RideRepository;
 use Doctrine\Common\Collections\ArrayCollection;

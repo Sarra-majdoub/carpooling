@@ -35,12 +35,11 @@ const CreateNewRide = (props) => {
         data.append("price", price);
         data.append("description", "");
         try {
-            console.log(data);
+            // console.log(data);
             const response = await axios.post(
-                "http://localhost/Server/api.php",
-                data
+                "http://localhost:8000/api/createRide"
             );
-            console.log(response);
+            //console.log(response);
             if (response.status === 200) {
                 console.log("New ride registered successfully");
                 handleCloseModal();

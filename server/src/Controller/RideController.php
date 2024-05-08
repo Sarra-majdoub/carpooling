@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Nelmio\CorsBundle\NelmioCorsBundle;
 use App\Entity\Ride;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
