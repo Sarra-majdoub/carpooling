@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.slider {
+  width: 20%;
+}
+
+.add-btn {
+  background-color: #565e6d;
+  color: white;
+  padding: 10px;
+  width: 262px;
+  height: 43px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.pricing {
+  font-weight: bold;
+}
+.min {
+  position: relative;
+  right: 37px;
+}
+.inp {
+  position: relative;
+  top: 4px;
+}
+.places {
+  margin-right: 135px;
+  font-weight: bold;
+}
+.slid {
+  margin-right: 18px;
+}
+.review {
+  margin-right: 195px;
+  font-weight: bold;
+}
+.side-bar {
+  margin-top: 90px;
+}
+.offers {
+  position: relative;
+  left: 600px;
+  bottom: 420px;
+}
+.tab {
+  width: 1150px;
+  position: relative;
+  right: 250px;
+}
+
+@media screen and (max-width: 1200px) {
+  .tab {
+    width: 800px;
+    position: relative;
+    right: 250px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .tab {
+    width: 600px;
+    position: relative;
+    right: 250px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .tab {
+    width: 300px;
+    position: relative;
+    right: 250px;
+  }
+}
+.pag {
+  position: relative;
+  margin-top: 10px;
+  left: 150px;
+}
+.star {
+  position: relative;
+  top: 6px;
+}

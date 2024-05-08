@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.Login {
+    text-align: center;
+    background: #DEE1E6;
+    min-height: 100vh;
+    align-items: center;
+}
+.LoginCard{
+    align-self: center;
+    margin-right:30% ;
+    margin-left: 30%;
+    height: 100%;
+}
+.Login::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    clip-path: polygon(-15% 0%, 50% 75%, 80% 0%);
+}

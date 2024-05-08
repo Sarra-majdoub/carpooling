@@ -1,0 +1,96 @@
+#RegisterButton {
+    background-color: #565E6D;
+    width: 100%;
+
+}
+.card-body{
+    margin-left: 70px;
+    margin-right: 70px;
+}
+.card-title {
+    color: #171A1F;
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 20px;
+}
+.RegisterCardContainer {
+    height: 100%;
+    width: 75%;
+    background: #F8F9FA;
+}
+
+.form-group label {
+    width: 100px;
+}
+
+.form-group input {
+    flex-grow: 1;
+}
+.name-group {
+    display: flex;
+    justify-content: space-between;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+}
+.form{
+    background: #F8F9FA;
+}
+.card{
+    background: #F8F9FA;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.form-label{
+    color: #424956;
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: left;
+}
+.form-check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+;
+}
+.form-check-input{
+    margin-bottom: 3px;
+    background: #565E6D;
+
+}
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+.login-link {
+    margin-top: 10px;
+    text-align: center;
+}
+.login-link a {
+    color: #171A1F;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+.login-link a:hover {
+    text-decoration: underline;
+}
+.error-message {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    display: none;
+  }

@@ -1,0 +1,59 @@
+.users {
+  position: relative;
+  left: 400px;
+  bottom: 280px;
+}
+
+.tab-admin {
+  position: relative;
+  right: 400px;
+  margin-top: 300px;
+}
+
+.pag-admin {
+  position: relative;
+  margin-top: 10px;
+  left: 150px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+td {
+  padding: 13px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+tr:nth-child(even) {
+  background-color: white;
+}
+
+tr:nth-child(even):hover {
+  background-color: #f2f2f2;
+}
+
+.text-admin {
+  font-weight: bold;
+  margin-right: 8px;
+  font-size: large;
+}
+
+.div-num{
+  height: 50px;
+  width: 500px;
+}

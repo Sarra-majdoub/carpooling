@@ -1,0 +1,8 @@
+.SentenceCardDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.SentenceCardDiv img {
+    margin-bottom: 10px;
+}

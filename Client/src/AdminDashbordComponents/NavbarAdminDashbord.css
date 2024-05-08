@@ -1,0 +1,57 @@
+.nav-bar-admin {
+  background-color: #dee1e6;
+  height: 60px;
+  padding: 10px;
+  gap: 40px;
+}
+
+.navbar-img-admin {
+  width: 40px;
+  position: relative;
+  bottom: 50px;
+}
+
+.navbar-div-admin {
+  align-items: center;
+}
+
+.nav-bar-label-admin {
+  font-size: 16px;
+  position: relative;
+  left: 30px;
+}
+
+.navbar-input-admin {
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  width: 400px;
+}
+
+.logout-button {
+  background-color: #4d4c4b;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #e6dcdb;
+}
+
+.register-head1 {
+  margin-top: 5px;
+}
+
+.register-head2 {
+  margin: 10px;
+  color: #000;
+  font-family: "italic";
+  font-size: 20px;
+}
+.logout-dash {
+  position: relative;
+  left: 200px;
+}
