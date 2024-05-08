@@ -28,7 +28,7 @@ const Rides = () => {
     data.append("id", id);
     data.append("reported_id", id);
     axios
-      .post("http://localhost/Server/api.php", data)
+      .get("http://localhost:8000/api/rides", data)
       .then((response) => {
         if (response.status === 200) {
           if (response.status === 200) {
@@ -77,18 +77,14 @@ const Rides = () => {
       if (rating) data.append("rating", rating);
       if (currency) data.append("price", currency);
       if (places) data.append("having", places);
-      data.append("action", "getAllRides");
-
       try {
         const response = await axios.post(
-          "http://localhost/Server/api.php",
+          "http://localhost/Server/api/rides",
           data
         );
-        console.log(response);
         if (response.status === 200) {
           const responseData = response.data;
           console.log(responseData);
-          console.log("heyyy");
           if (responseData === "[]null") {
             console.log("inn");
             setOffers([]);
@@ -126,7 +122,7 @@ const Rides = () => {
       console.log(data.get("id"));
       console.log(data.get("ride_id"));
       axios
-        .post("http://localhost/Server/api.php", data)
+        .post("http://localhost/Server/rides", data)
         .then((response) => {
           console.log(response.data);
           if (response.status === 200) {
@@ -153,7 +149,7 @@ const Rides = () => {
         console.log(data.get("id"));
         console.log(data.get("ride_id"));
         axios
-          .post("http://localhost/Server/api.php", data)
+          .post("http://localhost/Server/rides", data)
           .then((response) => {
             console.log(response.data);
             if (response.status === 200) {

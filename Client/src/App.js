@@ -13,7 +13,7 @@ function App() {
         if(localStorage.getItem("userId")!==null){
             return true;
         }else{
-            return false;
+            return true;
         }
     };
     const adminAuthCheck = () => {
@@ -21,7 +21,7 @@ function App() {
             return true;
         }
         else{
-            return false;
+            return true;
         }
     };
     return (
