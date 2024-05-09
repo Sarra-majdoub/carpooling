@@ -4,9 +4,11 @@ namespace App\Service;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Symfony\Bundle\MakerBundle\Str;
+
 class MailerService
 {
-    public function sendEmail(string $email, string $subject, string $body): bool
+    public function sendEmail(string $email, string $subject, string $body): String
     {
         $mail = new PHPMailer(true);
 
@@ -16,24 +18,29 @@ class MailerService
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'alaadnzaw@gmail.com';
-            $mail->Password = '';
+            /**
+             * @todo insert your password here
+              */
+            $mail->Password = 'INSERT_YOUR_PASSWORD_HERE';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             // Recipients
-            $mail->setFrom('', '');
+            $mail->setFrom('$alaadnzaw@gmail.com', 'me');
             $mail->addAddress($email);
 
             // Content
-            $mail->isHTML(true);
+            $mail->isHTML(false);
             $mail->Subject = $subject;
             $mail->Body = $body;
 
-            $mail->send();
-            return true;
+            if(! $mail->send()){
+                return 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+            };
+            return 'Message has been sent';
         } catch (Exception $e) {
             // Log or handle the exception as needed
-            return false;
+            return 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
         }
     }
 }

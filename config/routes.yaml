@@ -22,6 +22,5 @@ ride_delete:
   methods: ["DELETE"]
 
 report:
-  path: /email/report
-  controller: App\Controller\EmailController::report
-  methods: ["POST"]
+  path: /report/{id}
+  controller: App\Controller\UserController::report

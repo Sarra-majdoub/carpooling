@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Service\MailerService;
+
 class UserController extends AbstractController
 {
     private $entityManager;
@@ -104,6 +106,25 @@ class UserController extends AbstractController
         } else {
             return new JsonResponse(['message' => 'Incorrect password'], JsonResponse::HTTP_UNAUTHORIZED);
         }
+    }
+
+    #[Route('/report/{id}', name: 'report', methods: ['POST'])]
+    public function report(int $id,MailerService $mailer): JsonResponse
+    {
+        $userRepository = $this->entityManager->getRepository(User::class);
+        $user = $userRepository->find($id);
+
+        if (!$user) {
+            return new JsonResponse(['message' => 'User not found'], JsonResponse::HTTP_NOT_FOUND);
+        }
+        
+        // $mailer->sendEmail($user->getEmail(), 'You have been reported', 'You have been reported for inappropriate behavior on our platform. Please contact us for more information.');
+        $res = $mailer->sendEmail("mkchfthnity@gmail.com", 'User '.$user->getFirstname().' '.$user->getLastname().'reported', 'User with email ' . $user->getEmail() . ' has been reported for inappropriate behavior on our platform.');
+        // $res = $mailer->sendEmail("mkchfthnity@gmail.com", 'User reported', 'User with email has been reported for inappropriate behavior on our platform.');
+        
+        // $this->entityManager->flush();
+
+        return new JsonResponse(['message' => 'User reported successfully', 'res' => $res]);
     }
 
 
