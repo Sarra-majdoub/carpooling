@@ -111,4 +111,5 @@ class RideController extends AbstractController
 
         return new JsonResponse(['message' => 'Ride deleted successfully']);
     }
+
 }

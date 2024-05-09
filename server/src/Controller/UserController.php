@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Entity\Ride;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -107,6 +108,64 @@ class UserController extends AbstractController
             return new JsonResponse(['message' => 'Incorrect password'], JsonResponse::HTTP_UNAUTHORIZED);
         }
     }
+    #[Route('/join-ride/{rideId}', name: 'join_ride', methods: ['POST'])]
+    public function joinRide(Request $request, int $rideId, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+       $userId = $data['userId'];
 
+       $userRepository = $entityManager->getRepository(User::class);
+       $rideRepository = $entityManager->getRepository(Ride::class);
 
+       $user = $userRepository->find($userId);
+       $ride = $rideRepository->find($rideId);
+
+        if (!$user) {
+            return new JsonResponse(['message' => 'User not found'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        if (!$ride) {
+            return new JsonResponse(['message' => 'Ride not found'], JsonResponse::HTTP_NOT_FOUND);
+        }
+        if(sizeOf($ride->getPassengers()) >= $ride->getPlaces()){
+            return new JsonResponse(['message' => 'The driver cannot join'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        if($ride->getDriver()->getId() === $user->getId()){
+            return new JsonResponse(['message' => 'Ride is full of users'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        $ride->addPassenger($user);
+        $user->setJoined($ride);
+        $entityManager->flush();
+
+        return new JsonResponse(['message' => 'User joined the ride successfully']);
+    }
+    #[Route('/leave-ride/{rideId}', name: 'leave_ride', methods: ['POST'])]
+        public function leaveRide(Request $request, int $rideId, EntityManagerInterface $entityManager): JsonResponse
+            {
+            $data = json_decode($request->getContent(), true);
+                    $userId = $data['userId'];
+
+                    $userRepository = $entityManager->getRepository(User::class);
+                    $rideRepository = $entityManager->getRepository(Ride::class);
+
+                    $user = $userRepository->find($userId);
+                    $ride = $rideRepository->find($rideId);
+
+            if (!$user) {
+                return new JsonResponse(['message' => 'User not logged in'], Response::HTTP_UNAUTHORIZED);
+            }
+
+            if (!$ride) {
+                return new JsonResponse(['message' => 'Ride not found'], Response::HTTP_NOT_FOUND);
+            }
+
+            if ($user->getJoined() !== $ride) {
+                return new JsonResponse(['message' => 'User is not part of this ride'], Response::HTTP_BAD_REQUEST);
+            }
+            $ride->removePassenger($user);
+            $user->setJoined(null);
+            $this->entityManager->flush();
+
+            return new JsonResponse(['message' => 'User left the ride successfully']);
+        }
 }
