@@ -145,6 +145,8 @@ class Ride
         return $this->Passengers;
     }
 
+
+
     public function addPassenger(User $passenger): static
     {
         if (!$this->Passengers->contains($passenger)) {
@@ -166,6 +168,7 @@ class Ride
 
         return $this;
     }
+    
 
     public function getDriver(): ?User
     {
