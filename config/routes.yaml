@@ -1,23 +1,27 @@
 controllers:
-    resource: ../src/Controller/
-    type: annotation
+  resource: ../src/Controller/
+  type: annotation
 
 kernel:
-    resource: ../src/Kernel.php
-    type: annotation
+  resource: ../src/Kernel.php
+  type: annotation
 # config/routes.yaml
 ride_get_all:
-    path: /rides
-    controller: App\Controller\RideController::getAll
-    methods: ['GET']
+  path: /rides
+  controller: App\Controller\RideController::getAll
+  methods: ["GET"]
 
 ride_create:
-    path: /rides/createRide
-    controller: App\Controller\RideController::createRide
-    methods: ['POST']
+  path: /rides/createRide
+  controller: App\Controller\RideController::createRide
+  methods: ["POST"]
 
 ride_delete:
-    path: /rides/delete/{userId}
-    controller: App\Controller\RideController::delete
-    methods: ['DELETE']
+  path: /rides/delete/{userId}
+  controller: App\Controller\RideController::delete
+  methods: ["DELETE"]
 
+report:
+  path: /email/report
+  controller: App\Controller\EmailController::report
+  methods: ["POST"]
