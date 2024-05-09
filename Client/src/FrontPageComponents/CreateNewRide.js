@@ -10,7 +10,7 @@ const CreateNewRide = (props) => {
     const dispatch = useDispatch();
    // const user = useSelector((state) => state.UserReducer.user);
    //  const user = localStorage.getItem("userId");
-    const user = 1;
+    const user = localStorage.getItem("userId");
     console.log("user",user);
     const [fromCity, setFromCity] = useState('');
     const [toCity, setToCity] = useState('');

@@ -69,14 +69,7 @@ const Rides = () => {
   useEffect(() => {
     async function fetchData() {
       const formattedDate = moment(date).format("YYYY-MM-DD");
-      const data = new FormData();
-      if (departure) data.append("departure", departure);
-      if (arrival) data.append("arrival", arrival);
-      if (date) data.append("date", formattedDate);
-      if (time) data.append("time", time);
-      if (rating) data.append("rating", rating);
-      if (currency) data.append("price", currency);
-      if (places) data.append("having", places);
+
       try {
         const response = await axios.get(
           "http://localhost:8000/api/rides"
@@ -84,7 +77,7 @@ const Rides = () => {
         console.log(response);
         if (response.status === 200) {
           const responseData = response.data;
-         // console.log(responseData);
+         console.log(responseData);
           if (responseData === "[]null") {
          console.log("inn");
             setOffers([]);
@@ -107,67 +100,67 @@ const Rides = () => {
     //console.log(subOffers);
   }, [currentPage, offers]);
 
-  // const buttonPressed = (offer) => {
-  //   let buttonOn = localStorage.getItem("buttonOn");
-  //  // console.log(buttonOn);
-  //   if (buttonOn == 0) {
-  //     localStorage.setItem("buttonOn", 1);
-  //     localStorage.setItem("rideId", offer.id);
-  //     const associatedRide = localStorage.getItem("rideId");
-  //     const data = new FormData();
-  //     const user = localStorage.getItem("userId");
-  //     data.append("action", "joinRide");
-  //     data.append("id", user);
-  //     data.append("ride_id", offer.id);
-  //   //  console.log(data.get("id"));
-  //  //   console.log(data.get("ride_id"));
-  //     axios
-  //       .post("http://localhost/Server/rides", data)
-  //       .then((response) => {
-  //         console.log(response.data);
-  //         if (response.status === 200) {
-  //           alert("Ride joined successfully.");
-  //         } else {
-  //           alert("An error occurred. Please try again later.");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //         alert("An error occurred. Please try again later.");
-  //       });
-  //   } else {
-  //     if (offer.id !== localStorage.getItem("rideId"))
-  //       alert(
-  //         "You have already joined a ride. You can only join one ride at a time."
-  //       );
-  //     else {
-  //       const data = new FormData();
-  //       const user = localStorage.getItem("userId");
-  //       data.append("action", "leaveRide");
-  //       data.append("id", user);
-  //       data.append("ride_id", offer.id);
-  //       console.log(data.get("id"));
-  //       console.log(data.get("ride_id"));
-  //       axios
-  //         .post("http://localhost/Server/rides", data)
-  //         .then((response) => {
-  //           console.log(response.data);
-  //           if (response.status === 200) {
-  //             alert("Ride left successfully.");
-  //             localStorage.setItem("buttonOn", 0);
-  //           } else {
-  //             alert("An error occurred. Please try again later.");
-  //           }
-  //         })
-  //         .catch((error) => {
-  //           console.error(error);
-  //           alert("An error occurred. Please try again later.");
-  //         });
-  //       localStorage.setItem("buttonOn", 0);
-  //       localStorage.setItem("rideId", 0);
-  //     }
-  //   }
-  // };
+  const buttonPressed = (offer) => {
+    let buttonOn = localStorage.getItem("buttonOn");
+   // console.log(buttonOn);
+    if (buttonOn == 0) {
+      localStorage.setItem("buttonOn", 1);
+      localStorage.setItem("rideId", offer.id);
+      const associatedRide = localStorage.getItem("rideId");
+      const data = new FormData();
+      const user = localStorage.getItem("userId");
+      data.append("action", "joinRide");
+      data.append("id", user);
+      data.append("ride_id", offer.id);
+    //  console.log(data.get("id"));
+   //   console.log(data.get("ride_id"));
+      axios
+        .post("http://localhost/Server/rides", data)
+        .then((response) => {
+          console.log(response.data);
+          if (response.status === 200) {
+            alert("Ride joined successfully.");
+          } else {
+            alert("An error occurred. Please try again later.");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("An error occurred. Please try again later.");
+        });
+    } else {
+      if (offer.id !== localStorage.getItem("rideId"))
+        alert(
+          "You have already joined a ride. You can only join one ride at a time."
+        );
+      else {
+        const data = new FormData();
+        const user = localStorage.getItem("userId");
+        data.append("action", "leaveRide");
+        data.append("id", user);
+        data.append("ride_id", offer.id);
+        console.log(data.get("id"));
+        console.log(data.get("ride_id"));
+        axios
+          .post("http://localhost/Server/rides", data)
+          .then((response) => {
+            console.log(response.data);
+            if (response.status === 200) {
+              alert("Ride left successfully.");
+              localStorage.setItem("buttonOn", 0);
+            } else {
+              alert("An error occurred. Please try again later.");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("An error occurred. Please try again later.");
+          });
+        localStorage.setItem("buttonOn", 0);
+        localStorage.setItem("rideId", 0);
+      }
+    }
+  };
 
   return (
     <div className="offers flex flex-col">
@@ -204,13 +197,13 @@ const Rides = () => {
                   />
                 </Dropdown>
               </td>
-              <td>{offer.firstname}</td>
+              <td>{offer.driver.firstname}</td>
               <td>{offer.departure_date}</td>
               <td>{offer.departure_time}</td>
               <td>{offer.price}</td>
               <td>{offer.departure}</td>
               <td>{offer.arrival}</td>
-              <td>{offer.rating}</td>
+              <td>{offer.driver.rating}</td>
               <td>
                 {offer.user_count}/{offer.places}
               </td>
