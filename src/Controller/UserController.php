@@ -81,19 +81,17 @@ class UserController extends AbstractController
     }
 
     #[Route('/login', name: 'login', methods: ['POST'])]
-    public function login(Request $request, UserPasswordEncoderInterface $passwordEncoder): JsonResponse
+    public function login(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $userRepository = $entityManager->getRepository(User::class);
+        $userRepository = $this->entityManager->getRepository(User::class);
         $user = $userRepository->findOneBy(['email' => $data['email']]);
 
         if (!$user) {
             return new JsonResponse(['message' => 'User not found'], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        if ($passwordEncoder->isPasswordValid($user, $data['password'])) {
+        if (($user->getPassword()== $data['password'])) {
             return new JsonResponse([
                 'message' => 'Login successful',
                 'id' => $user->getId(),
@@ -101,10 +99,12 @@ class UserController extends AbstractController
                 'is_admin' => $user->getIsAdmin(),
                 'firstName' => $user->getFirstName(),
                 'lastName' => $user->getLastName(),
-                'pfp' => base64_encode(file_get_contents($user->getPfpPath())),
+               // 'pfp' => base64_encode(file_get_contents($user->getPfpPath())),
             ]);
         } else {
             return new JsonResponse(['message' => 'Incorrect password'], JsonResponse::HTTP_UNAUTHORIZED);
         }
     }
+
+
 }
