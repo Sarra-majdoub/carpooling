@@ -9,7 +9,8 @@ import {UserReducer} from "../reducers/UserReducer";
 const CreateNewRide = (props) => {
     const dispatch = useDispatch();
    // const user = useSelector((state) => state.UserReducer.user);
-    const user = localStorage.getItem("userId");
+   //  const user = localStorage.getItem("userId");
+    const user = 1;
     console.log("user",user);
     const [fromCity, setFromCity] = useState('');
     const [toCity, setToCity] = useState('');
@@ -24,33 +25,46 @@ const CreateNewRide = (props) => {
             alert('All fields must be filled out');
             return;
         }
-        const data = new FormData();
-        data.append("action", "createRide");
-        data.append("departure", fromCity);
-        data.append("id" , user);
-        data.append("arrival", toCity);
-        data.append("date", date);
-        data.append("time", time);
-        data.append("seats", seats);
-        data.append("price", price);
-        data.append("description", "");
+
+        // Check if seats is a valid number
+        if (isNaN(parseInt(seats))) {
+            alert('Seats must be a valid number');
+            return;
+        }
+
+        const rideData = {
+            driver: 4,
+            departure: fromCity,
+            arrival: toCity,
+            date: date,
+            time: time,
+            price: price,
+            places: seats,
+            description: ""
+        };
+
+        console.log("Ride Data:", rideData); // Log the rideData object
+
         try {
-            // console.log(data);
             const response = await axios.post(
-                "http://localhost:8000/api/createRide"
+                "http://localhost:8000/api/createRide",
+                rideData
             );
-            //console.log(response);
+
+            console.log("Response:", response.data); // Log the response data
+
             if (response.status === 200) {
                 console.log("New ride registered successfully");
                 handleCloseModal();
                 props.onNewRideCreated();
             }
         } catch (error) {
-            console.error(error);
+            console.error("Error:", error.response.data); // Log the error response
             alert("An error occurred. Please try again later.");
-            return;
         }
     };
+
+
     const handleCloseModal = () => {
         dispatch(closeModal());
     }
