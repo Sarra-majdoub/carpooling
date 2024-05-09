@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Repository;
-
+use Nelmio\CorsBundle\NelmioCorsBundle;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Nelmio\CorsBundle\NelmioCorsBundle;
 
 /**
  * @extends ServiceEntityRepository<User>

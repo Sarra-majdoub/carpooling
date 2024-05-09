@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Entity;
-use Nelmio\CorsBundle\NelmioCorsBundle;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Nelmio\CorsBundle\NelmioCorsBundle;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
@@ -15,31 +14,31 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $firstname = null;
+    private ?string $firstname = "";
 
     #[ORM\Column(length: 255)]
-    private ?string $lastname = null;
+    private ?string $lastname = "";
 
     #[ORM\Column]
-    private ?int $phoneNumber = null;
+    private ?int $phoneNumber = 0;
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    private ?string $email = "";
 
     #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    private ?string $password = "";
 
     #[ORM\Column(length: 255)]
-    private ?string $pfpPath = null;
+    private ?string $pfpPath = "images/default.PNG";
 
     #[ORM\Column]
-    private ?bool $isAdmin = null;
+    private ?bool $isAdmin = false;
 
     #[ORM\Column]
-    private ?float $rating = null;
+    private ?float $rating = 0;
 
     #[ORM\Column]
-    private ?int $nbRatings = null;
+    private ?int $nbRatings = 0;
 
     #[ORM\ManyToOne(inversedBy: 'Passengers')]
     private ?Ride $joined = null;
@@ -125,6 +124,11 @@ class User
     }
 
     public function isIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function getIsAdmin(): ?bool
     {
         return $this->isAdmin;
     }

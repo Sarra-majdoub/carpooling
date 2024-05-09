@@ -77,9 +77,10 @@ class RideController extends AbstractController
         $ride->places = $data['places'];
         $ride->setDescription($data['description']);
         $ride->setDriver($user);
+        $user->setDriving($ride->getId());
         $this->entityManager->persist($ride);
         $this->entityManager->flush();
-        $user->setDriving($ride->getId());
+
         $this->entityManager->flush();
 
         return new JsonResponse(['message' => 'Ride created successfully', 'ride_id' => $ride->getId()]);

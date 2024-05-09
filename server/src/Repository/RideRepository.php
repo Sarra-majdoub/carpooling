@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 use Nelmio\CorsBundle\NelmioCorsBundle;
-
 use App\Entity\Ride;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
