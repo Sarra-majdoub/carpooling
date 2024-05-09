@@ -25,25 +25,24 @@ function RegisterCard({ image }) {
       alert('All fields must be filled out');
       return;
     }
-    
+    const userData = {
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      email: email,
+      password: password
+    };
 
-    const data = new FormData();
-    data.append("action", "signUp");
-    data.append("firstName", firstName);
-    data.append("lastName", lastName);
-    data.append("phoneNumber", phoneNumber);
-    data.append("email", email);
-    data.append("password", password);
-    console.log(image);
-    if(image != null){
-    data.append("image", image);    }
+    if (image !== null) {
+      userData.image = image;
+    }
+
     try {
-      console.log(data);
       const response = await axios.post(
-        "http://localhost/Server/api.php",
-        data
+          "http://localhost:8000/register",
+          userData
       );
-      console.log(response);
+
       if (response.status === 200) {
         console.log("User registered successfully");
         window.location.href = "/login";

@@ -33,14 +33,14 @@ const CreateNewRide = (props) => {
         }
 
         const rideData = {
-            driver: 4,
+            driver: user,
             departure: fromCity,
             arrival: toCity,
             date: date,
             time: time,
             price: price,
             places: seats,
-            description: ""
+            description: description
         };
 
         console.log("Ride Data:", rideData); // Log the rideData object

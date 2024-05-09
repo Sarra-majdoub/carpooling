@@ -20,15 +20,14 @@ function LoginCard() {
       alert("All fields must be filled out");
       return;
     }
-    const data = new FormData();
-    data.append("action", "login");
-    data.append("email", email);
-    data.append("password", password);
+    const loginData = {
+      email: email,
+      password: password
+    };
     try {
-      console.log(data);
       const response = await axios.post(
-        "http://localhost/Server/api.php",
-        data
+        "http://localhost:8000/login",
+        loginData
       );
       console.log(response);
       if (response.status === 200) {

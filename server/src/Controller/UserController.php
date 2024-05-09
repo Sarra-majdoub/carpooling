@@ -71,7 +71,7 @@ class UserController extends AbstractController
         $user = $this->entityManager->getRepository(User::class)->find($id);
 
         if (!$user) {
-            return new JsonResponse(['message' => 'User not found'], JsonResponse::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'User not found']);
         }
 
         $this->entityManager->remove($user);
@@ -88,7 +88,7 @@ class UserController extends AbstractController
         $user = $userRepository->findOneBy(['email' => $data['email']]);
 
         if (!$user) {
-            return new JsonResponse(['message' => 'User not found'], JsonResponse::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'User not found']);
         }
         $hashedPassword = $user->getPassword();
         $password = $data['password'];

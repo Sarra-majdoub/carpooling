@@ -77,7 +77,7 @@ class RideController extends AbstractController
         $ride->places = $data['places'];
         $ride->setDescription($data['description']);
         $ride->setDriver($user);
-        $user->setDriving($ride->getId());
+        $user->setDriving($ride);
         $this->entityManager->persist($ride);
         $this->entityManager->flush();
 
