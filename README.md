@@ -23,26 +23,27 @@ To run the project, follow these steps:
 1. Install XAMPP from [here](https://www.apachefriends.org/index.html).
 2. Clone the project.
 3. Add this code to Apache Config (Apache (httpd.conf)):
+   
    -Header always set Access-Control-Allow-Origin "*"
     Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
     Header always set Access-Control-Allow-Headers "origin, content-type, accept, authorization"
     Header always set Access-Control-Allow-Credentials "true".
-4. Start the Apache and MySQL services in XAMPP.
-5. Navigate to the project's Client folder in your terminal.
-6. Run the following command to install dependencies:
+5. Start the Apache and MySQL services in XAMPP.
+6. Navigate to the project's Client folder in your terminal.
+7. Run the following command to install dependencies:
 
     ```bash
     npm install
     ```
 
-7. Start the frontend development server:
+8. Start the frontend development server:
 
     ```bash
     npm start
     ```
 
-8. Navigate to the project's Backend folder in your terminal.
-9. Run the following commands to set up the Symfony application and load data fixtures:
+9. Navigate to the project's Backend folder in your terminal.
+10. Run the following commands to set up the Symfony application and load data fixtures:
 
     ```bash
     composer install
@@ -50,9 +51,9 @@ To run the project, follow these steps:
     symfony console doctrine:migrations:migrate
     symfony console doctrine:fixtures:load
     ```
-10. Run:
-  -composer require nelmio/cors-bundle
 11. Run:
+  -composer require nelmio/cors-bundle
+12. Run:
     ```bash
     symfony serve
     ```
