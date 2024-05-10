@@ -7,12 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Entity\Ride;
+use App\Service\MailerService;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 class UserController extends AbstractController
 {
     private $entityManager;
@@ -141,31 +143,44 @@ class UserController extends AbstractController
     }
     #[Route('/leave-ride/{rideId}', name: 'leave_ride', methods: ['POST'])]
         public function leaveRide(Request $request, int $rideId, EntityManagerInterface $entityManager): JsonResponse
-            {
-            $data = json_decode($request->getContent(), true);
-                    $userId = $data['userId'];
-
-                    $userRepository = $entityManager->getRepository(User::class);
-                    $rideRepository = $entityManager->getRepository(Ride::class);
-
-                    $user = $userRepository->find($userId);
-                    $ride = $rideRepository->find($rideId);
-
-            if (!$user) {
-                return new JsonResponse(['message' => 'User not logged in'], Response::HTTP_UNAUTHORIZED);
-            }
-
-            if (!$ride) {
-                return new JsonResponse(['message' => 'Ride not found'], Response::HTTP_NOT_FOUND);
-            }
-
-            if ($user->getJoined() !== $ride) {
-                return new JsonResponse(['message' => 'User is not part of this ride'], Response::HTTP_BAD_REQUEST);
-            }
-            $ride->removePassenger($user);
-            $user->setJoined(null);
-            $this->entityManager->flush();
-
-            return new JsonResponse(['message' => 'User left the ride successfully']);
+        {
+        $data = json_decode($request->getContent(), true);
+                $userId = $data['userId'];
+                $userRepository = $entityManager->getRepository(User::class);
+                $rideRepository = $entityManager->getRepository(Ride::class);
+                $user = $userRepository->find($userId);
+                $ride = $rideRepository->find($rideId);
+        if (!$user) {
+            return new JsonResponse(['message' => 'User not logged in'], Response::HTTP_UNAUTHORIZED);
         }
+        if (!$ride) {
+            return new JsonResponse(['message' => 'Ride not found'], Response::HTTP_NOT_FOUND);
+        }
+        if ($user->getJoined() !== $ride) {
+            return new JsonResponse(['message' => 'User is not part of this ride'], Response::HTTP_BAD_REQUEST);
+        }
+        $ride->removePassenger($user);
+        $user->setJoined(null);
+        $this->entityManager->flush();
+        return new JsonResponse(['message' => 'User left the ride successfully']);
+    }
+
+    #[Route('/report/{id}', name: 'report', methods: ['POST'])]
+    public function report(int $id,MailerService $mailer): JsonResponse
+    {
+        $userRepository = $this->entityManager->getRepository(User::class);
+        $user = $userRepository->find($id);
+
+        if (!$user) {
+            return new JsonResponse(['message' => 'User not found'], JsonResponse::HTTP_NOT_FOUND);
+        }
+        
+        // $mailer->sendEmail($user->getEmail(), 'You have been reported', 'You have been reported for inappropriate behavior on our platform. Please contact us for more information.');
+        $res = $mailer->sendEmail("mkchfthnity@gmail.com", 'User '.$user->getFirstname().' '.$user->getLastname().'reported', 'User with email ' . $user->getEmail() . ' has been reported for inappropriate behavior on our platform.');
+        // $res = $mailer->sendEmail("mkchfthnity@gmail.com", 'User reported', 'User with email has been reported for inappropriate behavior on our platform.');
+        
+        // $this->entityManager->flush();
+
+        return new JsonResponse(['message' => 'User reported successfully', 'res' => $res]);
+    }
 }
