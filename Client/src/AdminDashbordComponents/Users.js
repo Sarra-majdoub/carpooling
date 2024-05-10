@@ -11,17 +11,12 @@ function Users() {
   const [subOffers, setSubOffers] = useState([]);
   const search = useSelector((state) => state.search.text);
   // show me the length of search
-  console.log(search.length);
   const handleDeleteUser = (u) => {
     const newUsers = users.filter((user) => user.Phone !== u.Phone);
-    console.log(u);
+    console.log(u.id);
     setUsers(newUsers);
-    const data = new FormData();
-    data.append("action", "deleteUser");
-    data.append("id", u.id);
-
     axios
-      .post("http://localhost/Server/api.php", data)
+      .get("http://localhost:8000/user/"+u.id)
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
@@ -39,13 +34,9 @@ function Users() {
   useEffect(() => {
     // Function to fetch data when component mounts
     async function fetchData() {
-      const data = new FormData();
-      data.append("action", "getAllUsers");
       try {
-        const response = await axios.post(
-          "http://localhost/Server/api.php",
-          data
-        );
+        const response = await axios.get(
+          "http://localhost:8000/users");
         console.log(response);
         if (response.status === 200) {
           console.log("New ride registered successfully");

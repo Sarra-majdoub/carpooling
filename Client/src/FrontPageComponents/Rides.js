@@ -101,21 +101,21 @@ const Rides = () => {
   }, [currentPage, offers]);
 
   const buttonPressed = (offer) => {
+    console.log("button pressed");
     let buttonOn = localStorage.getItem("buttonOn");
    // console.log(buttonOn);
     if (buttonOn == 0) {
       localStorage.setItem("buttonOn", 1);
       localStorage.setItem("rideId", offer.id);
       const associatedRide = localStorage.getItem("rideId");
-      const data = new FormData();
       const user = localStorage.getItem("userId");
-      data.append("action", "joinRide");
-      data.append("id", user);
-      data.append("ride_id", offer.id);
+      const data = {
+        userId: user
+      };
     //  console.log(data.get("id"));
    //   console.log(data.get("ride_id"));
       axios
-        .post("http://localhost/Server/rides", data)
+        .post("http://localhost:8000/join-ride/"+offer.id, data)
         .then((response) => {
           console.log(response.data);
           if (response.status === 200) {
@@ -129,20 +129,19 @@ const Rides = () => {
           alert("An error occurred. Please try again later.");
         });
     } else {
-      if (offer.id !== localStorage.getItem("rideId"))
+      console.log(offer.id);
+        console.log(localStorage.getItem("rideId"));
+      if (offer.id != localStorage.getItem("rideId"))
         alert(
           "You have already joined a ride. You can only join one ride at a time."
         );
       else {
-        const data = new FormData();
         const user = localStorage.getItem("userId");
-        data.append("action", "leaveRide");
-        data.append("id", user);
-        data.append("ride_id", offer.id);
-        console.log(data.get("id"));
-        console.log(data.get("ride_id"));
+        const data = {
+          userId: user
+        };
         axios
-          .post("http://localhost/Server/rides", data)
+          .post("http://localhost:8000/leave-ride/"+offer.id, data)
           .then((response) => {
             console.log(response.data);
             if (response.status === 200) {
@@ -211,7 +210,7 @@ const Rides = () => {
                 <button
                   type="submit"
                   className={"button"}
-                //  onClick={() => buttonPressed(offer)}
+                onClick={() => buttonPressed(offer)}
                 >
                   Join/Leave
                 </button>

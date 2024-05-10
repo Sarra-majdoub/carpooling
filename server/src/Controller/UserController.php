@@ -66,7 +66,7 @@ class UserController extends AbstractController
         return new JsonResponse($response);
     }
 
-    #[Route('/user/{id}', name: 'delete_user', methods: ['DELETE'])]
+    #[Route('/user/{id}', name: 'delete_user', methods: ['GET'])]
     public function deleteUser(int $id): JsonResponse
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
