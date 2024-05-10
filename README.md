@@ -1,6 +1,6 @@
 # Carpooling Web Application README
 
-Welcome to our "FTHNITHY" Rideshare Web Application! This application allows users to create and join rides, report other users via the admin email, and provides various features for managing rides efficiently. Below, you'll find instructions on setting up and using the application.
+Welcome to our "FTHNITHY" carpooling Web Application! This application allows users to create and join rides, report other users via the admin email, and provides various features for managing rides efficiently. Below, you'll find instructions on setting up and using the application.
 
 ## Features
 
