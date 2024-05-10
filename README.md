@@ -21,39 +21,41 @@ Welcome to our "FTHNITHY" Rideshare Web Application! This application allows use
 To run the project, follow these steps:
 
 1. Install XAMPP from [here](https://www.apachefriends.org/index.html).
-2. Clone the project into `C:\xampp\htdocs`.
-3. Start the Apache and MySQL services in XAMPP.
-4. Navigate to the project's Client folder in your terminal.
-5. Run the following command to install dependencies:
+2. Clone the project.
+3. Add this code to Apache Config (Apache (httpd.conf)):
+   -Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "origin, content-type, accept, authorization"
+    Header always set Access-Control-Allow-Credentials "true".
+4. Start the Apache and MySQL services in XAMPP.
+5. Navigate to the project's Client folder in your terminal.
+6. Run the following command to install dependencies:
 
     ```bash
     npm install
     ```
 
-6. Start the frontend development server:
+7. Start the frontend development server:
 
     ```bash
     npm start
     ```
 
-7. Navigate to the project's Backend folder in your terminal.
-8. Run the following commands to set up the Symfony application and load data fixtures:
+8. Navigate to the project's Backend folder in your terminal.
+9. Run the following commands to set up the Symfony application and load data fixtures:
 
     ```bash
     composer install
-    php bin/console doctrine:database:create
-    php bin/console doctrine:migrations:migrate
-    php bin/console doctrine:fixtures:load
+    symfony console doctrine:database:create
+    symfony console doctrine:migrations:migrate
+    symfony console doctrine:fixtures:load
     ```
-
-9. Add this code to Apache Config (Apache (httpd.conf)):
-   -Header always set Access-Control-Allow-Origin "*"
-    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-    Header always set Access-Control-Allow-Headers "origin, content-type, accept, authorization"
-    Header always set Access-Control-Allow-Credentials "true"
-
 10. Run:
   -composer require nelmio/cors-bundle
+11. Run:
+    ```bash
+    symfony serve
+    ```
 
 ## Usage
 
@@ -62,7 +64,7 @@ To run the project, follow these steps:
 - Create a ride by providing the required details.
 - Browse available rides and join those that match your preferences.
 - Report other users via the admin email if necessary.
-- Admins can access the admin dashboard to manage reported users and monitor application activity.
+- Admins can access the admin dashboard to manage reported users , monitor application activity  and delete users.
 
 **Admin credentials:**
 - Email: aymen.sallaouti@insat.ucar.tn
