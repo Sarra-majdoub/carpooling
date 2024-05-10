@@ -52,8 +52,10 @@ To run the project, follow these steps:
     symfony console doctrine:fixtures:load
     ```
 11. Run:
-  -composer require nelmio/cors-bundle
-12. Run:
+   ```bash
+    composer require nelmio/cors-bundle
+    ```
+13. Run:
     ```bash
     symfony serve
     ```
